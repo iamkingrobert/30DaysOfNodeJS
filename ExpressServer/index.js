@@ -1,7 +1,14 @@
 const express = require("express");
-const app = express();
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
 
-PORT = 4000;
+dotenv.config();
+
+const port = process.env.PORT || 4000;
+const db = process.env.MONGO_URL;
+const app = express();
 
 // METHOD: GET Endpoint: '/' - GET Method is used when Retrieving Data from the server
 app.get("/", (req, res) => {
@@ -11,9 +18,18 @@ app.get("/", (req, res) => {
 // METHOD: POST Endpoint: '/api/user' - POST Method is used when Sending Data to the server
 app.post("/api/users", (req, res) => {});
 
-app.listen(PORT, () => {
-  console.log("Express Server Running On Port: " + PORT);
-});
+const start = async () => {
+  try {
+    await mongoose.connect(db);
+    app.listen(port, () => {
+      console.log("Express Server Running On Port: " + port);
+    });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+start();
 
 // INSTALL UUID FOR THE PROJECT & LOGGING IT IN CONSOLE TO PREVIEW,
 // WE WILL BE USING THIS PACKAGE LATER ON IN THE PROJECT
