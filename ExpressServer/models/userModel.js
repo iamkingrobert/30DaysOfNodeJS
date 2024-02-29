@@ -1,7 +1,8 @@
-import mongoose from "mongoose";
-import bcrypt from "bcryptjs";
+const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
 const { v4: uuidv4 } = require("uuid");
 
+// Defining my USER Model by using Mongoose Schema to create the structure of my model
 const userSchema = mongoose.Schema(
   {
     name: {
@@ -46,4 +47,4 @@ userSchema.methods.matchPassword = async function (enteredPassword) {
 };
 
 const User = mongoose.model("User", userSchema);
-export default User;
+module.exports = User;
