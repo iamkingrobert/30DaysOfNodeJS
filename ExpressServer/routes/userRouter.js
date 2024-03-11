@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const createUser = require("../controllers/userController");
+const { createUser, authUser } = require("../controllers/userController");
 
 // Route: POST ('/api/users')
 // Access: Public
@@ -10,7 +10,7 @@ router.post("/", createUser);
 // Route: POST ('/api/users')
 // Access: Public
 // @Desc: Authenticates a user
-router.post("/auth");
+router.post("/auth", authUser);
 
 // Route: POST ('/api/users')
 // Access: Private
